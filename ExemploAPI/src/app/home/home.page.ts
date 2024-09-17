@@ -16,11 +16,13 @@ export class HomePage implements OnInit {
   films: Observable<any> | undefined;
 
 
+
   constructor(private router: Router, private http: HttpClient, public ToastController: ToastController) {}
 
   ngOnInit() {
-    this.films = this.http.get('https://swapi.dev/api/films');
+    this.films = this.http.get('https://swapi.dev/api/films').pipe(
     catchError(erro => this.ExibirErro(erro))
+  );
   }
   async ExibirErro(erro){
     const toast = await this.ToastController.create({
